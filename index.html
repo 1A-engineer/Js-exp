@@ -3,53 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greeting</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        #container {
-            width: 80%;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: #fff;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #3e8e41;
-        }
-        #greeting {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Mario Jump Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container">
-        <h2>Greeting</h2>
-        <p>What's your name?</p>
-        <input type="text" id="name">
-        <button onclick="sayHello()">Say Hello</button>
-        <div id="greeting"></div>
+    <div class="game-container">
+        <div class="mario" id="mario"></div>
+        <div class="obstacle" id="obstacle"></div>
     </div>
-
-    <script>
-        function sayHello() {
-            let name = document.getElementById("name").value;
-            document.getElementById("greeting").innerHTML = `Hello, ${name}!`;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
