@@ -1,41 +1,45 @@
 const mario = document.getElementById("mario");
+const obstacle = document.getElementById("obstacle");
+const gameContainer = document.querySelector(".game-container");
+const background = document.querySelector(".background");
 
-let isJumping = false;
-let pressStartTime = 0;
-let jumpInterval;
+let marioPosition = 50;
+let backgroundPosition = 0;
+let marioSpeed = 5; // Speed of Mario's movement to the right
 
+// Move Mario to the right
+function moveMarioRight() {
+  marioPosition += marioSpeed;
+  mario.style.left = `${marioPosition}px`;
+} 
+
+this.gravi
+
+Mario jump
+document.addEventListener("keydown", (event) =>)
+  // Move the background with Mario
+  if (marioPosition > gameContainer.offsetWidth / 2) {
+    backgroundPosition -= marioSpeed;
+    background.style.left = `${backgroundPosition}px`;
+  }
+}
+
+// Handle key events for Mario movement
 document.addEventListener("keydown", (event) => {
-    if (event.code === "Space" && !isJumping) {
-        isJumping = true;
-        pressStartTime = Date.now();
-        startJump();
-    }
+  if (event.key === "ArrowRight") {
+    moveMarioRight();
+  }
 });
 
-document.addEventListener("keyup", (event) => {
-    if (event.code === "Space" && isJumping) {
-        stopJump();
-        isJumping = false;
-    }
-});
+// Move the obstacle (fixed position on the background)
+let obstaclePosition = 800; // Set to be part of the background
+function moveObstacle() {
+  obstaclePosition -= 5; // Obstacle moves with background
 
-function startJump() {
-    let currentHeight = 20; // Start at the ground level
-    mario.style.transition = "none";
-
-    jumpInterval = setInterval(() => {
-        const pressDuration = Date.now() - pressStartTime;
-        const jumpHeight = Math.min(100, 50 + pressDuration / 5); // Cap height at 200px
-
-        if (jumpHeight > currentHeight) {
-            currentHeight = jumpHeight;
-            mario.style.bottom = `${currentHeight}px`;
-        }
-    }, 10);
+  if (obstaclePosition < -50) {
+    obstaclePosition = window.innerWidth; // Reset obstacle position
+  }
+  obstacle.style.left = `${obstaclePosition}px`;
 }
 
-function stopJump() {
-    clearInterval(jumpInterval);
-    mario.style.transition = "bottom 0.3s ease";
-    mario.style.bottom = "20px"; // Return to the ground
-}
+setInterval(moveObstacle, 20);

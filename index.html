@@ -3,14 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mario Jump Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Mario Game</title>
+    <style>
+        #gameCanvas {
+            border: 1px solid black;
+            width: 800px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            background-color: lightblue;
+        }
+        #mario {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .obstacle {
+            width: 50px;
+            height: 50px;
+            background-color: green;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="game-container">
-        <div class="mario" id="mario"></div>
-        <div class="obstacle" id="obstacle"></div>
+    <div id="gameCanvas">
+        <div id="mario"></div>
+        <div class="obstacle" style="left: 300px;"></div>
+        <div class="obstacle" style="left: 500px;"></div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const mario = document.getElementById('mario');
+        const obstacles = document.querySelectorAll('.obstacle');
+        const gameCanvas = document.getElementById('gameCanvas');
+        let marioX = 0;
+        let marioY = 0;
+        let isJumping = false;
+        let jumpHeight = 0;
+        let gravity = 5;
+        let velocityY = 0;
+        let keys = {};
+
+        document.addEventListener('keydown', (event) => {
+            keys[event.key] = true;
+        });
+
+        document.addEventListener('keyup', (event) => {
+            keys[event.key] = false;
+        });
+
+        function update() {
+            // Horizontal movement
+            if (keys['ArrowLeft']) {
+                marioX = Math.max(0, marioX - 5);
+            }
+            if (keys['ArrowRight']) {
+                marioX = Math.min(gameCanvas.clientWidth - mario.clientWidth, marioX + 5);
+            }
+
+            // Jumping
+            if (keys[' '] && !isJumping) {
+                isJumping = true;
+                velocityY = 15; // Initial jump velocity
+                jumpHeight = 0;
+            }
+
+            if (isJumping) {
+                marioY += velocityY;
+                velocityY -= gravity * 0.5; // Apply gravity
+                jumpHeight += velocityY;
+
+                if (jumpHeight <= 0) {
+                    marioY = 0;
+                    isJumping = false;
+                    velocityY = 0;
+                }
+            }
+
+            // Collision detection
+            obstacles.forEach(obstacle => {
+                if (marioX < obstacle.offsetLeft + obstacle.clientWidth &&
+                    marioX + mario.clientWidth > obstacle.offsetLeft &&
+                    marioY < obstacle.offsetTop + obstacle.clientHeight &&
+                    marioY + mario.clientHeight > obstacle.offsetTop) {
+                    // Collision detected
+                    mario.style.backgroundColor = 'orange'; // Change color on collision
+                } else {
+                    mario.style.backgroundColor = 'red'; // Reset color
+                }
+            });
+
+            // Update Mario's position
+            mario.style.left = marioX + 'px';
+            mario.style.bottom = marioY + 'px';
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    </script>
 </body>
 </html>
