@@ -1,45 +1,23 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #87CEEB;
-}
-
-.game-container {
+#gameCanvas {
+  border: 1px solid black;
+  width: 800px;
+  height: 400px;
   position: relative;
-  width: 100%;
-  height: 100vh;
   overflow: hidden;
+  background-color: lightblue;
 }
-
-.background {
+#mario {
+  width: 50px;
+  height: 50px;
+  background-color: red;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  width: 200%; /* Twice the width of the screen to simulate a large background */
-  height: 100%;
-  background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fsuper-mario-background&psig=AOvVaw2lYw-kzrWdyas1T6OYom6x&ust=1734141747156000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJj32MrTo4oDFQAAAAAdAAAAABAI'); /* Place your long background image here */
-  background-repeat: repeat-x;
 }
-
-.mario {
-  position: absolute;
-  bottom: 50px;
-  left: 50px;
-  width: 50px;
-  height: 50px;
-  background-color: red; /* Replace this with an image of Mario */
-  border-radius: 50%;
-}
-
 .obstacle {
-  position: absolute;
-  bottom: 50px;
-  left: 800px; /* Place obstacle somewhere along the background */
   width: 50px;
   height: 50px;
-  background-color: green; /* Replace this with obstacle image */
+  background-color: green;
+  position: absolute;
+  bottom: 0;
 }
